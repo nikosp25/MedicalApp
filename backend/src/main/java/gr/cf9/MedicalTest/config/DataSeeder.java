@@ -7,7 +7,7 @@ import gr.cf9.MedicalTest.repository.SpecialtyRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Set; // Use Set instead of List
+import java.util.Set;
 
 @Component
 public class DataSeeder implements CommandLineRunner {

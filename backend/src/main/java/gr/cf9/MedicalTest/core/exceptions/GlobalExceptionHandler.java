@@ -13,21 +13,20 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // This method ONLY listens for your DTO tags (@NotEmpty, @Pattern, @CustomAgeCheck) failing.
-    // It is a built-in Java exception, you do not need to create anything else.
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
 
         Map<String, String> errors = new HashMap<>();
 
-        // This loops through the bad DTO fields and grabs the custom text you typed
+        // Loops through the DTO fields and maps the errors.
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
 
-        // Returns a 400 Bad Request to Postman with your exact messages
+        // Returns a 400 Bad Request to Postman with my custom messages
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 

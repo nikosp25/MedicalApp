@@ -61,18 +61,18 @@ public class UserServiceImpl implements IUserService {
         User existingUser = userRepository.findById(dto.id())
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + dto.id()));
 
-        // 2. Validate that they aren't changing their email to someone else's email
+
         if (!existingUser.getEmail().equals(dto.email())) {
             if (userRepository.existsByEmail(dto.email())) {
                 throw new EntityAlreadyExistsException("Email " + dto.email() + " is already taken by another account.");
             }
         }
 
-        // 3. Apply changes from your Update DTO container
+
         existingUser.setEmail(dto.email());
 
 
-        // 4. Save updates safely back to the database
+
         userRepository.save(existingUser);
     }
 
