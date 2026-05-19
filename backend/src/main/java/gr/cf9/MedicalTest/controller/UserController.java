@@ -2,6 +2,7 @@ package gr.cf9.MedicalTest.controller;
 
 
 import gr.cf9.MedicalTest.dto.UserInsertDTO;
+import gr.cf9.MedicalTest.dto.UserReadOnlyDTO;
 import gr.cf9.MedicalTest.dto.UserUpdateDTO;
 import gr.cf9.MedicalTest.service.IUserService;
 import gr.cf9.MedicalTest.service.UserServiceImpl;
@@ -55,4 +56,18 @@ public class UserController {
 
         return ResponseEntity.ok("User successfully deleted.");
     }
+
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<UserReadOnlyDTO> getUser
+            (@PathVariable Long id) {
+
+        UserReadOnlyDTO readOnlyDTO = userService.getUserById(id);
+
+        return ResponseEntity.ok(readOnlyDTO);
+
+
+    }
+
+
+
 }

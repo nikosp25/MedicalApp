@@ -3,6 +3,7 @@ package gr.cf9.MedicalTest.service;
 import gr.cf9.MedicalTest.core.exceptions.EntityAlreadyExistsException;
 import gr.cf9.MedicalTest.core.exceptions.EntityNotFoundException;
 import gr.cf9.MedicalTest.dto.UserInsertDTO;
+import gr.cf9.MedicalTest.dto.UserReadOnlyDTO;
 import gr.cf9.MedicalTest.dto.UserUpdateDTO;
 import gr.cf9.MedicalTest.model.Role;
 import gr.cf9.MedicalTest.model.User;
@@ -82,6 +83,22 @@ public class UserServiceImpl implements IUserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with " + email + " not found"));
         user.softDelete();
         userRepository.save(user);
+
+    }
+
+
+    @Override
+    @Transactional
+    public UserReadOnlyDTO getUserById(Long id) {
+        User userToReturn = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found. "));
+
+        return  new UserReadOnlyDTO(
+                userToReturn.getFirstname(),
+                userToReturn.getLastname(),
+                userToReturn.getDateOfBirth(),
+                userToReturn.getEmail()
+        );
 
     }
 }
