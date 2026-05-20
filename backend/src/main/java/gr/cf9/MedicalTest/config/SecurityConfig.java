@@ -28,6 +28,7 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/user/delete").permitAll()
                         .requestMatchers("/api/user/getUser/*").permitAll()
+                        .requestMatchers("/api/admin/users").permitAll()
                         .anyRequest().authenticated() // Lock every other door
                 );
 

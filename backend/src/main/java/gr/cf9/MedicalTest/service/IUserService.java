@@ -1,8 +1,11 @@
 package gr.cf9.MedicalTest.service;
 
+import gr.cf9.MedicalTest.dto.UserAdminReadOnlyDTO;
 import gr.cf9.MedicalTest.dto.UserInsertDTO;
 import gr.cf9.MedicalTest.dto.UserReadOnlyDTO;
 import gr.cf9.MedicalTest.dto.UserUpdateDTO;
+
+import java.util.List;
 
 public interface IUserService {
 
@@ -15,4 +18,6 @@ public interface IUserService {
     void deleteUserByEmail(String email);
 
     UserReadOnlyDTO getUserById(Long id);
+
+    List<UserAdminReadOnlyDTO> getAllUsers();
 }

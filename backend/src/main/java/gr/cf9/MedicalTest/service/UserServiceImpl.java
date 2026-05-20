@@ -2,9 +2,11 @@ package gr.cf9.MedicalTest.service;
 
 import gr.cf9.MedicalTest.core.exceptions.EntityAlreadyExistsException;
 import gr.cf9.MedicalTest.core.exceptions.EntityNotFoundException;
+import gr.cf9.MedicalTest.dto.UserAdminReadOnlyDTO;
 import gr.cf9.MedicalTest.dto.UserInsertDTO;
 import gr.cf9.MedicalTest.dto.UserReadOnlyDTO;
 import gr.cf9.MedicalTest.dto.UserUpdateDTO;
+import gr.cf9.MedicalTest.mapper.UserMapper;
 import gr.cf9.MedicalTest.model.Role;
 import gr.cf9.MedicalTest.model.User;
 import gr.cf9.MedicalTest.repository.RoleRepository;
@@ -13,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl implements IUserService {
 
@@ -20,14 +25,18 @@ public class UserServiceImpl implements IUserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
+
 
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
-                           BCryptPasswordEncoder passwordEncoder) {
+                           BCryptPasswordEncoder passwordEncoder,
+                           UserMapper userMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
 
@@ -42,12 +51,8 @@ public class UserServiceImpl implements IUserService {
         Role defaultRole = roleRepository.findByRoleName("USER")
                 .orElseThrow(() -> new EntityNotFoundException("Role USER not found"));
 
-        User user = new User();
-        user.setFirstname(dto.firstname());
-        user.setLastname(dto.lastname());
-        user.setEmail(dto.email());
-        user.setDateOfBirth(dto.dateOfBirth());
-        user.setPassword(passwordEncoder.encode(dto.password()));
+        User user = userMapper.mapToUserEntity(dto);
+        user.setPassword((passwordEncoder.encode(dto.password())));
         user.getRoles().add(defaultRole);
 
         userRepository.save(user);
@@ -69,12 +74,12 @@ public class UserServiceImpl implements IUserService {
         }
 
 
-        existingUser.setEmail(dto.email());
-
-
-
+        userMapper.updateUserFromDTO(dto,existingUser);
         userRepository.save(existingUser);
     }
+
+
+
 
     @Override
     @Transactional
@@ -90,15 +95,18 @@ public class UserServiceImpl implements IUserService {
     @Override
     @Transactional
     public UserReadOnlyDTO getUserById(Long id) {
-        User userToReturn = userRepository.findById(id)
+        User userToReturn = userRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found. "));
 
-        return  new UserReadOnlyDTO(
-                userToReturn.getFirstname(),
-                userToReturn.getLastname(),
-                userToReturn.getDateOfBirth(),
-                userToReturn.getEmail()
-        );
+        return  userMapper.mapToUserReadOnlyDTO(userToReturn);
 
+    }
+
+    @Override
+    @Transactional
+    public List<UserAdminReadOnlyDTO> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(userMapper::mapToUserAdminReadOnlyDTO)
+                .toList();
     }
 }
