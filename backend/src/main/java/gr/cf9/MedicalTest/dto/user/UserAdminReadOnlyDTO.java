@@ -1,4 +1,4 @@
-package gr.cf9.MedicalTest.dto;
+package gr.cf9.MedicalTest.dto.user;
 
 import java.time.LocalDate;
 import java.util.UUID;

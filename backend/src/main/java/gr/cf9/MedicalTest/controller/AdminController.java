@@ -1,7 +1,7 @@
 package gr.cf9.MedicalTest.controller;
 
 
-import gr.cf9.MedicalTest.dto.UserAdminReadOnlyDTO;
+import gr.cf9.MedicalTest.dto.user.UserAdminReadOnlyDTO;
 import gr.cf9.MedicalTest.service.IUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

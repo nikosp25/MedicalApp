@@ -1,9 +1,9 @@
 package gr.cf9.MedicalTest.service;
 
-import gr.cf9.MedicalTest.dto.UserAdminReadOnlyDTO;
-import gr.cf9.MedicalTest.dto.UserInsertDTO;
-import gr.cf9.MedicalTest.dto.UserReadOnlyDTO;
-import gr.cf9.MedicalTest.dto.UserUpdateDTO;
+import gr.cf9.MedicalTest.dto.user.UserAdminReadOnlyDTO;
+import gr.cf9.MedicalTest.dto.user.UserInsertDTO;
+import gr.cf9.MedicalTest.dto.user.UserReadOnlyDTO;
+import gr.cf9.MedicalTest.dto.user.UserUpdateDTO;
 
 import java.util.List;
 

@@ -1,11 +1,10 @@
 package gr.cf9.MedicalTest.controller;
 
 
-import gr.cf9.MedicalTest.dto.UserInsertDTO;
-import gr.cf9.MedicalTest.dto.UserReadOnlyDTO;
-import gr.cf9.MedicalTest.dto.UserUpdateDTO;
+import gr.cf9.MedicalTest.dto.user.UserInsertDTO;
+import gr.cf9.MedicalTest.dto.user.UserReadOnlyDTO;
+import gr.cf9.MedicalTest.dto.user.UserUpdateDTO;
 import gr.cf9.MedicalTest.service.IUserService;
-import gr.cf9.MedicalTest.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

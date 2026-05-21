@@ -2,10 +2,10 @@ package gr.cf9.MedicalTest.service;
 
 import gr.cf9.MedicalTest.core.exceptions.EntityAlreadyExistsException;
 import gr.cf9.MedicalTest.core.exceptions.EntityNotFoundException;
-import gr.cf9.MedicalTest.dto.UserAdminReadOnlyDTO;
-import gr.cf9.MedicalTest.dto.UserInsertDTO;
-import gr.cf9.MedicalTest.dto.UserReadOnlyDTO;
-import gr.cf9.MedicalTest.dto.UserUpdateDTO;
+import gr.cf9.MedicalTest.dto.user.UserAdminReadOnlyDTO;
+import gr.cf9.MedicalTest.dto.user.UserInsertDTO;
+import gr.cf9.MedicalTest.dto.user.UserReadOnlyDTO;
+import gr.cf9.MedicalTest.dto.user.UserUpdateDTO;
 import gr.cf9.MedicalTest.mapper.UserMapper;
 import gr.cf9.MedicalTest.model.Role;
 import gr.cf9.MedicalTest.model.User;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements IUserService {

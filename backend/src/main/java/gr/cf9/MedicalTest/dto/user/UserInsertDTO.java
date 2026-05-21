@@ -1,7 +1,6 @@
-package gr.cf9.MedicalTest.dto;
+package gr.cf9.MedicalTest.dto.user;
 
 import gr.cf9.MedicalTest.validation.CustomAgeCheck;
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;

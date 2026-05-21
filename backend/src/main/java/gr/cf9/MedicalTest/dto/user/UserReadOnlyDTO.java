@@ -1,9 +1,5 @@
-package gr.cf9.MedicalTest.dto;
+package gr.cf9.MedicalTest.dto.user;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
